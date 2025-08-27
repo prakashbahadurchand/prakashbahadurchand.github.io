@@ -1,94 +1,855 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Name - Android Developer</title>
+    <title>Prakash Bahadur Chand - Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
+        :root {
+            --primary: #4a6cf7;
+            --secondary: #6cbbf2;
+            --accent: #50c878;
+            --text: #333333;
+            --text-light: #666666;
+            --background: #ffffff;
+            --background-alt: #f8faff;
+            --card-bg: #ffffff;
+            --shadow: rgba(149, 157, 165, 0.2);
+            --transition: all 0.3s ease;
         }
 
+        .dark-mode {
+            --primary: #6c83ff;
+            --secondary: #8ab6f9;
+            --accent: #65d68a;
+            --text: #f0f0f0;
+            --text-light: #cccccc;
+            --background: #121212;
+            --background-alt: #1e1e24;
+            --card-bg: #1e1e24;
+            --shadow: rgba(0, 0, 0, 0.25);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            transition: var(--transition);
+        }
+
+        /* Header & Navigation */
         header {
-            background-color: #007bff;
-            color: #fff;
-            padding: 1em 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
             text-align: center;
+            padding: 120px 20px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ffffff' fill-opacity='0.1' d='M0,128L48,117.3C96,107,192,85,288,112C384,139,480,213,576,218.7C672,224,768,160,864,138.7C960,117,1056,139,1152,149.3C1248,160,1344,160,1392,160L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+            background-size: cover;
+            background-position: center;
+        }
+
+        .nav-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .dark-mode .nav-container {
+            background: rgba(30, 30, 36, 0.95);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            color: var(--primary);
+        }
+
+        header h1 {
+            font-size: 3.5rem;
+            margin: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        header p.tagline {
+            font-size: 1.8rem;
+            margin: 10px 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        header p.description {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            position: relative;
+            z-index: 1;
+            opacity: 0.9;
+        }
+
+        .header-contacts {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-link {
+            color: white;
+            font-size: 1.5rem;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        .contact-link:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .scroll-down {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 2rem;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+            z-index: 1;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0) translateX(-50%);}
+            40% {transform: translateY(-20px) translateX(-50%);}
+            60% {transform: translateY(-10px) translateX(-50%);}
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
         }
 
         section {
-            max-width: 800px;
-            margin: 2em auto;
-            padding: 1em;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 80px;
+            scroll-margin-top: 80px;
         }
 
-        h1, h2 {
-            color: #007bff;
+        h2 {
+            color: var(--primary);
+            border-bottom: 3px solid var(--accent);
+            padding-bottom: 10px;
+            margin-bottom: 40px;
+            font-size: 2.2rem;
+            position: relative;
+            display: inline-block;
         }
 
-        ul {
-            list-style: none;
-            padding: 0;
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--secondary);
         }
 
-        li {
-            margin-bottom: 0.5em;
+        /* Skills Section */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
         }
 
-        footer {
-            background-color: #007bff;
-            color: #fff;
-            text-align: center;
-            padding: 1em 0;
-            position: fixed;
+        .skill-category {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px var(--shadow);
+            transition: var(--transition);
+        }
+
+        .skill-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px var(--shadow);
+        }
+
+        .skill-category h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .skill-item {
+            margin-bottom: 15px;
+        }
+
+        .skill-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .skill-bar {
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .dark-mode .skill-bar {
+            background: #2d2d35;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+            position: relative;
+            width: 0;
+            transition: width 1s ease;
+        }
+
+        /* Tools Section */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .tool-item {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px var(--shadow);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .tool-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px var(--shadow);
+        }
+
+        .tool-icon {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        /* Experience Section */
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background: var(--primary);
+            top: 0;
             bottom: 0;
-            width: 100%;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 10px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background: var(--background);
+            border: 4px solid var(--primary);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .timeline-item:nth-child(odd)::after {
+            right: -13px;
+        }
+
+        .timeline-item:nth-child(even)::after {
+            left: -13px;
+        }
+
+        .timeline-content {
+            padding: 20px;
+            background: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px var(--shadow);
+            transition: var(--transition);
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px var(--shadow);
+        }
+
+        .timeline-content h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .timeline-content .date {
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        /* Education Section */
+        .education-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .education-card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px var(--shadow);
+            transition: var(--transition);
+        }
+
+        .education-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px var(--shadow);
+        }
+
+        .education-card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .education-card .institute {
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .education-card .date {
+            color: var(--text-light);
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 999;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            background: var(--secondary);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            header h1 { font-size: 2.8rem; }
+            header p.tagline { font-size: 1.5rem; }
+            
+            .timeline::after { left: 31px; }
+            .timeline-item { width: 100%; padding-left: 70px; padding-right: 25px; }
+            .timeline-item:nth-child(even) { left: 0; }
+            .timeline-item::after { left: 18px !important; }
+        }
+
+        @media (max-width: 768px) {
+            header { padding: 100px 20px 60px; }
+            header h1 { font-size: 2.2rem; }
+            header p.tagline { font-size: 1.3rem; }
+            header p.description { font-size: 1rem; }
+            
+            h2 { font-size: 1.8rem; }
+            
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: var(--card-bg);
+                flex-direction: column;
+                padding: 20px;
+                gap: 15px;
+                box-shadow: 0 10px 20px var(--shadow);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .menu-toggle {
+                display: block;
+                font-size: 1.5rem;
+                cursor: pointer;
+            }
+            
+            .header-contacts { gap: 15px; }
+            .contact-link { width: 40px; height: 40px; font-size: 1.2rem; }
+        }
+
+        @media (max-width: 576px) {
+            .container { padding: 40px 15px; }
+            section { margin-bottom: 60px; }
+            
+            .skills-container,
+            .tools-grid,
+            .education-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
-
 <body>
+    <div class="nav-container">
+        <nav>
+            <div class="logo">PBC</div>
+            <div class="nav-links">
+                <a href="#skills">Skills</a>
+                <a href="#tools">Tools</a>
+                <a href="#experience">Experience</a>
+                <a href="#education">Education</a>
+            </div>
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+            <div class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+    </div>
 
     <header>
-        <h1>Your Name</h1>
-        <p>Android Developer</p>
+        <h1>Prakash Bahadur Chand</h1>
+        <p class="tagline">Android Native & Flutter Developer</p>
+        <p class="description">Over 5 years of professional experience using Java and Kotlin for Android & Flutter for cross-platform mobile app development. Solved complex problems in Mobile, Embedded, & IoT Technologies.</p>
+        <div class="header-contacts">
+            <a href="mailto:prakashbahadurchand@gmail.com" class="contact-link">
+                <i class="fas fa-envelope"></i>
+            </a>
+            <a href="tel:+9779848716912" class="contact-link">
+                <i class="fas fa-phone"></i>
+            </a>
+            <a href="https://linkedin.com/in/prakashbahadurchand" class="contact-link">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="https://github.com/prakashbahadurchand" class="contact-link">
+                <i class="fab fa-github"></i>
+            </a>
+        </div>
+        <div class="scroll-down" id="scrollDown">
+            <i class="fas fa-chevron-down"></i>
+        </div>
     </header>
-
-    <section>
-        <h2>About Me</h2>
-        <p>Welcome to my portfolio! I am a passionate Android developer with expertise in Kotlin and Android Studio. I love creating innovative and user-friendly mobile applications.</p>
-    </section>
-
-    <section>
-        <h2>Skills</h2>
-        <ul>
-            <li>Kotlin</li>
-            <li>Android Studio</li>
-            <li>UI/UX Design</li>
-            <!-- Add more skills as needed -->
-        </ul>
-    </section>
-
-    <section>
-        <h2>Projects</h2>
-        <ul>
-            <li><a href="#">Project 1</a> - Brief description of the project.</li>
-            <li><a href="#">Project 2</a> - Brief description of the project.</li>
-            <!-- Add more projects with links and descriptions -->
-        </ul>
-    </section>
-
+    
+    <div class="container">
+        <section id="skills">
+            <h2>Skills</h2>
+            <div class="skills-container">
+                <div class="skill-category">
+                    <h3><i class="fas fa-code"></i> Technical Skills</h3>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Java & Kotlin</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="95%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Flutter & Dart</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Android SDK</span>
+                            <span>92%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="92%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>RESTful APIs</span>
+                            <span>88%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="88%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>UI/UX Design</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="85%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3><i class="fas fa-comments"></i> Languages</h3>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>English</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Nepali</span>
+                            <span>100%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="100%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Hindi</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="80%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="tools">
+            <h2>Tools</h2>
+            <div class="tools-grid">
+                <div class="tool-item">
+                    <div class="tool-icon"><i class="fab fa-android"></i></div>
+                    <div class="tool-name">Android Studio</div>
+                </div>
+                <div class="tool-item">
+                    <div class="tool-icon"><i class="fas fa-code"></i></div>
+                    <div class="tool-name">VS Code</div>
+                </div>
+                <div class="tool-item">
+                    <div class="tool-icon"><i class="fab fa-figma"></i></div>
+                    <div class="tool-name">Figma</div>
+                </div>
+                <div class="tool-item">
+                    <div class="tool-icon"><i class="fab fa-git-alt"></i></div>
+                    <div class="tool-name">Git</div>
+                </div>
+                <div class="tool-item">
+                    <div class="tool-icon"><i class="fas fa-project-diagram"></i></div>
+                    <div class="tool-name">Jira</div>
+                </div>
+                <div class="tool-item">
+                    <div class="tool-icon"><i class="fas fa-fire"></i></div>
+                    <div class="tool-name">Firebase</div>
+                </div>
+                <div class="tool-item">
+                    <div class="tool-icon"><i class="fas fa-cube"></i></div>
+                    <div class="tool-name">Unity3D</div>
+                </div>
+                <div class="tool-item">
+                    <div class="tool-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div class="tool-name">Burp Suite</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="experience">
+            <h2>Experience</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Self Taught Android Developer</h3>
+                        <span class="date">Aug 2017 - Present</span>
+                        <ul>
+                            <li>Developed Prem Ra Jindagi, Hamro Maya, Premi, Nepali Success Quotes, Wishmate, etc. apps using Java and published on Google Play Store.</li>
+                            <li>Used Blogger API, YouTube API, SQLite Database, Firebase, AdMob Ads.</li>
+                            <li>Best look elegant User Interface with attractive designs.</li>
+                            <li>All apps Downloaded over 500K+.</li>
+                            <li><a href="https://play.google.com/store/apps/dev?id=9135776261333522383">Google Play Link</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Mid-Level Android Developer - Sofsee Tech Pvt. Ltd.</h3>
+                        <span class="date">Jan 2019 – May 2022</span>
+                        <ul>
+                            <li>Trained 100+ Students for Android Applications Development using Java & for Website Frontend Using HTML, CSS, JS, Bootstrap, MySQL, WordPress.</li>
+                            <li>Developed: Hanuman Chalisha, Other apps for School Management System using REST API and also ROOM Database for Offline Mode.</li>
+                            <li>APIs: Google Analytics, Firebase, Maps, Other APIs & Worked as Project Manager</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Senior Android Native & Flutter Developer - Ramlaxman Innovations Pvt. Ltd.</h3>
+                        <span class="date">Aug 2022 – Present</span>
+                        <ul>
+                            <li>Android Native Projects: Smart Home (Tuya IOT API & BizBundle, Realtime Home Automation), Smart Voting (Android Embedded Full Secure, Printer, GPIO, Custom ISO), ATM Security (Tensorflow Object Detection & Recognition), Bird Repelling System (Laser & Motor Control through GPIO & Serial Port), Digital Signage (Android TV Launcher, Dynamic Media Carousel), QRAMS (Show ID Card to QR Device for Attendance), Kataho SDK Android C++ NDK (Android NDK Development), LiveDetectionDVR (Realtime Object Detection & Tracking).</li>
+                            <li>Flutter Android & iOS Projects: Kataho App (Firebase, MQTT, WebSocket, Realtime Chat, Maps, Payment), Kataho SDK Dart FFI (Secured & Compiled Binary Dart SDK), Smart Hajiri (Realtime Attendance Monitoring), GPS Nepal (Realtime Vehicle Tracking with Routing Directions on Maps), RTWQMS (Mobile App for Realtime Water Quality Monitoring System), LMS (Mobile App for Realtime Land Slide Monitoring System), MQTT Chat App (MQTT Realtime Chat App Pub/Sub).</li>
+                            <li><a href="https://play.google.com/store/apps/dev?id=5330956791149013926">Google Play Link</a></li>
+                            <li><a href="https://apps.apple.com/us/developer/ram-rimal/id1113987782">App Store Link</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Freelance Flutter Developer</h3>
+                        <span class="date">Sep 2022 – Present</span>
+                        <ul>
+                            <li>Developed "Local Government Monitoring System" for monitor and update progress for planning, health, education, etc with Clean Architecture Multi-Module Feature Based.</li>
+                            <li>Developing Electric Vehicle Mobile App, Bike Dashboard App & Backend REST API Using PHP Laravel for Evon Electric Bike EV Startup Company.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="education">
+            <h2>Education & Learning</h2>
+            <div class="education-grid">
+                <div class="education-card">
+                    <h3>Diploma in Computer Application (1.5 Years)</h3>
+                    <span class="institute">I-Tech Computer Education, Thane, Mumbai, Maharashtra, India</span>
+                    <span class="date">Sep 2017 – Jun 2018</span>
+                </div>
+                <div class="education-card">
+                    <h3>I.Com, Second Division / 49.40%</h3>
+                    <span class="institute">Shree Birendra HSS Shahilek, Baitadi, Nepal</span>
+                    <span class="date">2013</span>
+                </div>
+            </div>
+        </section>
+    </div>
+    
     <footer>
-        <p>Contact me at: your.email@example.com</p>
+        <p>&copy; 2025 Prakash Bahadur Chand. All rights reserved.</p>
     </footer>
 
-</body>
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
 
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const icon = themeToggle.querySelector('i');
+        
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        });
+        
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.querySelector('.nav-links');
+        
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        
+        // Scroll to Section
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    // Close mobile menu if open
+                    navLinks.classList.remove('active');
+                }
+            });
+        });
+        
+        // Scroll Down Button
+        document.getElementById('scrollDown').addEventListener('click', () => {
+            window.scrollTo({
+                top: document.getElementById('skills').offsetTop - 80,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Back to Top Button
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        });
+        
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Animate Skill Bars
+        function animateSkillBars() {
+            const skillBars = document.querySelectorAll('.skill-progress');
+            skillBars.forEach(bar => {
+                const width = bar.getAttribute('data-width');
+                bar.style.width = width;
+            });
+        }
+        
+        // Initialize animations when page loads
+        window.addEventListener('load', animateSkillBars);
+    </script>
+</body>
 </html>
